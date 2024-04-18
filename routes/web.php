@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PostController::class, 'home']); 
+Route::get('/drinks/create', [PostController::class, 'create']);
+Route::get('/drinks/{drink}', [PostController::class, 'index']);
+Route::post('/drinks', [PostController::class, 'store']);
+
+
+
