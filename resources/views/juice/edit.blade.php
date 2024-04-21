@@ -5,17 +5,18 @@
         <title>Blog</title>
     </head>
     <body>
-        <h1>投稿</h1>
-        <form action="/drinks" method="POST">
+        <h1>編集</h1>
+        <form action='/posts/{{$post->id}}' method="POST">
             @csrf
+            @method('PUT')
             <div class="title">
-                <h2>投稿文の作成</h2>
-                <input type="text" name="post[title]" placeholder="タイトル（場所の名前など）" value="{{ old('post.title') }}"/>
+                <h2>投稿文の編集</h2>
+                <input type="text" name="post[title]" value="{{$post->title}}"/>
                 <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
             </div>
             <div class="body">
                 <h2>本文</h2>
-                <textarea name="post[body]" placeholder="オランジーナを発見したぞ！">{{ old('post.body') }}</textarea>
+                <textarea name="post[body]" placeholder="オランジーナを発見したぞ！">{{$post->body}}</textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
             </div>
             <div class="prefecture">

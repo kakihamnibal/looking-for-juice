@@ -13,10 +13,14 @@
         @foreach($posts as $post)
         <div class="posts">
             <h3>
-                {{$post->title}}
+                <a href='/posts/{{$post->id}}'>{{$post->title}}</a>
                 <span>
-                    <button class="edit" type="button" >編集</button>
-                    <button class="delete" type="button" >削除</button>
+                    <button class="edit" type="button" ><a href='/posts/{{$post->id}}/edit'>編集</a></button>
+                    <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="delete" type="button" onclick="deletePost({{ $post->id }})">削除</button> 
+                    </form>
                 </span>
             </h3>
             <button type="button">あった</button>
@@ -27,5 +31,14 @@
         <div class='paginate'>
             {{ $posts->links() }}
         </div>
+        <script>
+            function deletePost(id) {
+             'use strict'
+
+             if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+            document.getElementById(`form_${id}`).submit();
+            }
+        }
+        </script>
     </body>
 </html>
