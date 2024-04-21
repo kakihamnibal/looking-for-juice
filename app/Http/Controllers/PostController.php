@@ -19,6 +19,11 @@ class PostController extends Controller
         return view('juice.index')->with(['posts'=>$post->getPaginateByLimit()]);
     }
     
+    public function show(Post $post)
+    {
+        return view('juice.show')->with(['post'=>$post]);
+    }
+    
     public function create(Drink $drink)
     {
         return view('juice.create')->with(['drinks'=>$drink->get()]);
@@ -31,4 +36,23 @@ class PostController extends Controller
         return redirect('/');
     }
     
+    public function edit(Post $post)
+    {
+        $drink = Drink::all();
+        return view('juice.edit')->with(['post'=>$post, 'drinks'=>$drink]);
+
+    }
+    
+    public function update(PostRequest $request, Post $post)
+    {
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+        return redirect('/');
+    }
+    
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/drinks/'.$post->drink_id);
+    }
 }
