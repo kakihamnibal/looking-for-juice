@@ -14,17 +14,23 @@ class Post extends Model
     protected $fillable = [
     'title',
     'body',
-    'drink_id'
+    'drink_id',
+    'user_id'
     ];
    
     public function getPaginateByLimit(int $limit_count = 10)
     {
-    return $this::with('drink')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    return $this::with('drink' ,'user')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
     public function drink()
     {
         return $this->belongsTo(Drink::class);
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     
 }
