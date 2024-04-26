@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Models\Drink;
 use App\Models\Post;
+use App\Models\Prefecture;
+use App\Models\city;
 
 class PostController extends Controller
 {

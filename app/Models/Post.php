@@ -33,4 +33,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function prefecture()
+    {
+        return $this->belongsTo(Prefecture::class);
+    }
+    
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    
 }
