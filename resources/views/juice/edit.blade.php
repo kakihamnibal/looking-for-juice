@@ -24,18 +24,16 @@
                     <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
                 </div>
                 <div class="prefecture">
-                    <select name="prefectures" size="1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select name='prefectures' id='prefecture_select'>
+                        <option>都道府県を選択してください</option>
+                        @foreach($prefectures as $prefecture)
+                            <option value='{{ $prefecture->id }}' id='{{ $prefecture->id }}'>{{ $prefecture->prefecture }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="drink">
-                    <h3>見つけたジュース</h3>
-                    <select name="post[drink_id]">
-                        @foreach($drinks as $drink)
-                            <option value="{{ $drink->id }}">{{ $drink->name }}</option>
-                        @endforeach
+                <div class='city'>
+                    <select name='city' id='city_select'>
+                        <option>市区町村を選択してください</option>
                     </select>
                 </div>
                 <br>
@@ -43,5 +41,37 @@
             </form>
             <div class="back">[<a href="/">戻る</a>]</div>
         </x-app-layout> 
+        <script>
+            const prefectureSelect = document.getElementById('prefecture_select');
+            const citySelect = document.getElementById('city_select');
+        
+            // 都道府県が変更されたときに呼び出される関数
+            function updateCities() {
+                // 選択された都道府県の値（value）を取得
+                const selectedPrefecture = prefectureSelect.value;
+        
+                // 市区町村の選択肢を空にする->例）北海道から沖縄に変更した時にリセットするため
+                citySelect.innerHTML = '';
+        
+                // 選択された都道府県に対応する市区町村の選択肢を表示
+                @foreach($cities as $city)
+                    if ('{{ $city->prefecture_id }}' === selectedPrefecture) {
+                        //createElement（'option'）はhtml要素を作るためのメソッド
+                        const option = document.createElement('option');
+                        option.value = '{{ $city->id }}';
+                        option.textContent = '{{ $city->city }}';
+                        //citySelectに上で作ったoption要素を追加している
+                        citySelect.appendChild(option);
+                    }
+                @endforeach
+            }
+        
+            // 都道府県が変更されたときにupdateCities関数を呼び出す
+            prefectureSelect.addEventListener('change', updateCities);
+            
+            // 初期表示時に市区町村の選択肢を更新
+            //質問
+            updateCities();
+        </script>
     </body>
 </html>

@@ -15,12 +15,14 @@ class Post extends Model
     'title',
     'body',
     'drink_id',
-    'user_id'
+    'user_id',
+    'prefecture_id',
+    'city_id'
     ];
    
     public function getPaginateByLimit(int $limit_count = 10)
     {
-    return $this::with('drink' ,'user')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this::with('drink' ,'user')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
     public function drink()
@@ -43,4 +45,8 @@ class Post extends Model
         return $this->belongsTo(City::class);
     }
     
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'discover', 'user_id', 'post_id');  
+    }
 }
