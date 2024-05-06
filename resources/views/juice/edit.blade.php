@@ -24,7 +24,7 @@
                     <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
                 </div>
                 <div class="prefecture">
-                    <select name='prefectures' id='prefecture_select'>
+                    <select name='post[prefecture_id]' id='prefecture_select'>
                         <option>都道府県を選択してください</option>
                         @foreach($prefectures as $prefecture)
                             <option value='{{ $prefecture->id }}' id='{{ $prefecture->id }}'>{{ $prefecture->prefecture }}</option>
@@ -32,7 +32,7 @@
                     </select>
                 </div>
                 <div class='city'>
-                    <select name='city' id='city_select'>
+                    <select name='post[city_id]' id='city_select'>
                         <option>市区町村を選択してください</option>
                     </select>
                 </div>
