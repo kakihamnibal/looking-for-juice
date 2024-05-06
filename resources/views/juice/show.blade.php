@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <title>Blog</title>
         <!-- Fonts -->
-        <link href="index.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
     </head>
     <body>
         <x-noLogin>

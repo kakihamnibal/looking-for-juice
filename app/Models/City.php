@@ -9,6 +9,11 @@ class City extends Model
 {
     use HasFactory;
     
+    public function city()
+    {
+        return City::orderBy('id', 'ASC')->get();
+    }
+    
     public function prefecture()
     {
         return $this->belongsTo(Prefecture::class);

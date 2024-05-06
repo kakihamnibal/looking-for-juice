@@ -7,7 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Drink;
 use App\Models\Post;
 use App\Models\Prefecture;
-use App\Models\city;
+use App\Models\City;
 
 class PostController extends Controller
 {
@@ -26,9 +26,13 @@ class PostController extends Controller
         return view('juice.show')->with(['post'=>$post]);
     }
     
-    public function create(Drink $drink)
+    public function create(Drink $drink, Prefecture $prefecture, City $city)
     {
-        return view('juice.create')->with(['drinks'=>$drink->get()]);
+        return view('juice.create')
+        ->with(['drinks'=>$drink->get(), 
+                'prefectures'=>$prefecture->prefecture(), 
+                'cities'=>$city->city()
+                ]);
     }
     
     public function store(Post $post, PostRequest $request)

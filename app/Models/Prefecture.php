@@ -9,6 +9,11 @@ class Prefecture extends Model
 {
     use HasFactory;
     
+    public function prefecture()
+    {
+        return Prefecture::orderBy('id', 'ASC')->get();
+    }
+    
     public function city()
     {
         return $this->hasMany(City::class);
