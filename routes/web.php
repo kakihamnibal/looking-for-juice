@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DrinkController;
-
+use App\Http\Controllers\DiscoverController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/', [PostController::class, 'home']);
+Route::get('/', [DrinkController::class, 'home']);
 Route::get('posts/{post}', [PostController::class, 'show']);
 
 
@@ -33,9 +33,9 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::put('posts/{post}', 'update');
     Route::delete('posts/{post}', 'delete');
 });
-Route::get('/drinks/{drink}', [PostController:: class, 'index']);
-Route::post('/discover/{$discover}',[DiscoverController::class,'store']);
-Route::post('/notDiscover/{$discover}',[DiscoverController::class,'destroy']);
+Route::get('/drinks/{drink}', [DrinkController:: class, 'index']);
+Route::post('/discover/{postId}',[DiscoverController::class,'storeDiscovery']);
+Route::post('/notDiscover/{postId}',[DiscoverController::class,'destroyDiscovery']);
 
 
 Route::middleware('auth')->group(function () {

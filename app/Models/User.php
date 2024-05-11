@@ -42,57 +42,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function post()   
+    public function posts()   
     {
         return $this->hasMany(Post::class);  
     }
     
-    public function posts()
+    public function discoveries()
     {
         return $this->belongsToMany(Post::class, 'discover', 'user_id', 'post_id');
     }
     
-    public function isDiscover($discover)
+    public function isDiscover($postId)
     {
-        return $this->posts->where('post_id', $discover)->exists();
+        return $this->discoveries()->where('post_id', $postId)->exists();
     }
     
-    public function isNotDiscover($notDiscover)
+    public function discovery($postId)
     {
-        return $this->posts()->where('post_id', $notDiscover)->exists();
-    }
-    
-    public function discover($discover, $notDiscover)
-    {
-        if($this->isDiscover($discover) && !$this->isNotDiscover($notDiscover))
+        if($this->isDiscover($postId)){
+        
+        }else
         {
-            $this->posts()->detach($discover); 
-        }
-        elseif(!$this->isDiscover($discover) && $this->isNotDiscover($notDiscover))
-        {
-            $this->posts()->detach($notDisover);
-            $this->posts()->attach($discover);
-        }
-        else
-        {
-            $this->posts()->attach($discover);    
+            $this->discoveries()->attach($postId); 
         }
     }
     
-    public function notDiscover($discover, $notDiscover)
+    public function noDiscovery($postId)
     {
-        if($this->isDiscover($discover) && !$this->isNotDiscover($notDiscover))
+        if($this->isDiscover($postId))
         {
-            $this->posts()->detach($discover);
-            $this->posts()->attach($notDiscover);
+            $this->discoveries()->detach($postId);
         }
-        elseif(!$this->isDiscover($discover) && $this->isNotDiscover($notDiscover))
-        {
-            $this->posts()->detach($notDiscover);
-        }
-        else
-        {
-            $this->posts()->attach($notDiscover);
+        
+        else{
+    
         }
     }
 }
