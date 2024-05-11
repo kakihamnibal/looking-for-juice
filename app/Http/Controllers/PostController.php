@@ -3,27 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PostRequest;
 use App\Models\Drink;
 use App\Models\Post;
 use App\Models\Prefecture;
 use App\Models\City;
+use App\Models\User;
+use App\Models\Discover;
 
 class PostController extends Controller
 {
-    public function home(Drink $drink)
-    {
-        return view('juice.home')->with(['drinks'=>$drink->get()]);
-    }
     
-   public function index(Post $post)
+    public function show(Post $post, Drink $drink)
     {
-        return view('juice.index')->with(['posts'=>$post->getPaginateByLimit()]);
-    }
-    
-    public function show(Post $post)
-    {
-        return view('juice.show')->with(['post'=>$post]);
+        $drinkInfo = $drink->find($drink->id);
+        $discovery_counts = Discover::where('post_id', $post->id)
+                          ->groupBy('user_id')
+                          ->select('user_id', DB::raw('COUNT(*) as discoveries_count'))
+                          ->get();
+        return view('juice.show')->with([
+            'post' => $post,
+            'drink' => $drinkInfo,
+            'discovery_counts' => $discovery_counts
+        ]);
     }
     
     public function create(Drink $drink, Prefecture $prefecture, City $city)
@@ -46,14 +49,18 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $drink = Drink::all();
-        return view('juice.edit')->with(['post'=>$post, 'drinks'=>$drink]);
+        return view('juice.edit')
+        ->with(['drinks'=>$drink->get(), 
+                'prefectures'=>$prefecture->prefecture(), 
+                'cities'=>$city->city()
+                ]);
 
     }
     
     public function update(PostRequest $request, Post $post)
     {
         $input_post = $request['post'];
-        $input += ['user_id'=>$request->user()->id];
+        $input_post += ['user_id'=>$request->user()->id];
         $post->fill($input_post)->save();
         return redirect('/');
     }

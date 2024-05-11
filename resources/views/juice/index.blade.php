@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <title>Blog</title>
         <!-- Fonts -->
-        <link href="css/index.css" rel="stylesheet">
     </head> 
     <body>
         <x-noLogin>
@@ -12,7 +11,7 @@
                 ジュース発見ブログ
             </x-slot>
             <div class="drink_header">
-                <h1 class="drink">{{$posts->first()->drink->name}}</h1>
+                <h1 class="drink">{{$drink->name}}</h1>
             </div>
             @foreach($posts as $post)
             <div class="posts">
@@ -27,8 +26,6 @@
                         </form>
                     </span>
                 </h3>
-                <button type="button">あった</button>
-                <button type="button">なかった</button>
                 <p style="font-size: 10px;">{{$post->created_at}}</p>
             </div>
             @endforeach
@@ -44,5 +41,6 @@
                 }
             }
         </script>
+        <script src="../../../js/discovery.js"></script>
     </body>
 </html>
