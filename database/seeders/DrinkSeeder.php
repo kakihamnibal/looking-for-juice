@@ -24,6 +24,15 @@ class DrinkSeeder extends Seeder
             [
                 'name' => 'Dr Pepper'
             ],
+            [
+                'name' => 'メロンソーダ'
+            ],
+            [
+                'name' => 'グレープフルーツジュース'
+            ],
+            [
+                'name' => 'その他'
+            ]
             
         ]);
     }
