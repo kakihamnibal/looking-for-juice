@@ -15,7 +15,7 @@
                     window.location.href = `/posts/${postId}`;
                 })
                 .fail(function (xhr, status, error) {
-                    console.log(error);
+                    alert('この機能はログインユーザー限定です');
                 });
             }
             
@@ -31,7 +31,7 @@
                     window.location.href = `/posts/${postId}`;
                 })
                 .fail(function (xhr, status, error) {
-                    console.log(error);
+                    alert('この機能はログインユーザー限定です');
                 });
             }
         </script>
@@ -39,10 +39,11 @@
     <body>
         <x-noLogin>
             <x-slot name="header">
-                ジュース発見ブログ
+                ジュース発見ブログ&emsp;&emsp;
+                <a href='/login'>ログイン</a>&nbsp;/&nbsp;<a href='/register'>新規登録</a>
             </x-slot>
             <div class="drink_header">
-                    <h1 class="drink">{{$post->name}}</h1>
+                    <h1 class="drink">{{$post->drink->name}}</h1>
             </div>
             <div class="posts">
                 <h3>
@@ -52,6 +53,7 @@
                         <button class="delete" type="button" >削除</button>
                     </span>
                 </h3>
+                <p>{{$post->prefecture->prefecture}}{{$post->city->city}}</p>
                 <p>{{$post->body}}</p>
                 <button onclick="discovery({{$post->id}})">あった</button>
                 @foreach($discovery_counts as $discovery_count)

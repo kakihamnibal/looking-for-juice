@@ -8,13 +8,22 @@
     <body>
         <x-noLogin>
             <x-slot name="header">
-                ジュース発見ブログ&emsp;&emsp;
-                <a href='/login'>ログイン</a>&nbsp;/&nbsp;<a href='/register'>新規登録</a>
+                ジュース発見ブログ
             </x-slot>
             
             <div class="drink_header">
                 <h1 class="drink">{{$drink->name}}</h1>
             </div>
+            <form action='/prefecture/{{$prefectureId}}' method="get">
+                <label for="prefecture">都道府県:</label>
+                <select name="prefecture_id" id="prefecture">
+                    <option value="">すべて</option>
+                    @foreach($prefectures as $prefecture)
+                        <option value="{{$prefecture->id}}">{{$prefecture->prefecture}}</option>
+                    @endforeach
+                </select>
+                <button type="submit">絞り込む</button>
+            </form>
             @foreach($posts as $post)
             <div class="posts">
                 <h3>

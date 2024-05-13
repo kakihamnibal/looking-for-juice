@@ -7,7 +7,8 @@
     <body>
         <x-noLogin>
             <x-slot name="header">
-                ジュース発見ブログ
+                ジュース発見ブログ&emsp;&emsp;
+                <a href='/login'>ログイン</a>&nbsp;/&nbsp;<a href='/register'>新規登録</a>
             </x-slot>
             <h1>飲み物発見ブログ</h1>
             <button class="create" type="button" ><a href="/drinks/create">投稿</a></button>

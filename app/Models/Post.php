@@ -49,4 +49,6 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class, 'discover', 'user_id', 'post_id');  
     }
+    
+    
 }

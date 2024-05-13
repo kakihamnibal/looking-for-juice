@@ -34,8 +34,8 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::delete('posts/{post}', 'delete');
 });
 Route::get('/drinks/{drink}', [DrinkController:: class, 'index']);
-Route::post('/discover/{postId}',[DiscoverController::class,'storeDiscovery']);
-Route::post('/notDiscover/{postId}',[DiscoverController::class,'destroyDiscovery']);
+Route::post('/discover/{postId}',[DiscoverController::class,'storeDiscovery'])->middleware('auth');
+Route::post('/notDiscover/{postId}',[DiscoverController::class,'destroyDiscovery'])->middleware('auth');
 
 
 Route::middleware('auth')->group(function () {

@@ -15,16 +15,15 @@ use App\Models\Discover;
 class PostController extends Controller
 {
     
-    public function show(Post $post, Drink $drink)
+    public function show(Post $post)
     {
-        $drinkInfo = $drink->find($drink->id);
         $discovery_counts = Discover::where('post_id', $post->id)
                           ->groupBy('user_id')
                           ->select('user_id', DB::raw('COUNT(*) as discoveries_count'))
                           ->get();
+        
         return view('juice.show')->with([
             'post' => $post,
-            'drink' => $drinkInfo,
             'discovery_counts' => $discovery_counts
         ]);
     }

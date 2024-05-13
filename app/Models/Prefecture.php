@@ -19,8 +19,9 @@ class Prefecture extends Model
         return $this->hasMany(City::class);
     }
     
-    public function post()
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }
+    
 }
