@@ -24,4 +24,8 @@ class Prefecture extends Model
         return $this->hasMany(Post::class);
     }
     
+    public function getByPrefecture()
+    {
+        return $this->posts()->with('prefecture')->orderBy('updated_at', 'DESC');
+    }
 }
