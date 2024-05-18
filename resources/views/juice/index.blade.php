@@ -15,10 +15,18 @@
             <div class="drink_header">
                 <h1 class="drink">{{$drink->name}}</h1>
             </div>
+            <select id='prefecture_id'>
+                <option>都道府県</option>
+                @foreach($prefectures as $prefecture)
+                    <option value='{{ $prefecture->id }}'>{{ $prefecture->prefecture }}</option>
+                @endforeach
+            </select>
+            <button type='button' onclick="location.href='/drink/{{ $drink->id }}/prefecture/' + document.getElementById('prefecture_id').value;">絞り込み</button>
+            <!--getElementByIdでoptionのvalueを取得し、それをURIに含めることでlocationメソッドを使いprefCategoryのindexのページに飛ぶことができる -->  
             @foreach($posts as $post)
             <div class="posts">
                 <h3>
-                    <a href='/posts/{{$post->id}}'>{{$post->title}}</a>
+                    <a href='/posts/{{ $post->id }}'>{{ $post->title }}</a>
                     <span>
                         <button class="edit" type="button" ><a href='/posts/{{$post->id}}/edit'>編集</a></button>
                         <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">

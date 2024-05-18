@@ -28,13 +28,16 @@
                         @foreach($prefectures as $prefecture)
                             <option value='{{ $prefecture->id }}' id='{{ $prefecture->id }}'>{{ $prefecture->prefecture }}</option>
                         @endforeach
+                        <p class="body__error" style="color:red">{{ $errors->first('post.prefecture_id') }}</p>
                     </select>
                 </div>
                 <div class='city'>
                     <select name='post[city_id]' id='city_select'>
                         <option>市区町村を選択してください</option>
                     </select>
+                    
                 </div>
+                
                 <div class="drink">
                     <h3>見つけたジュース</h3>
                     <select name="post[drink_id]">
@@ -77,7 +80,6 @@
             prefectureSelect.addEventListener('change', updateCities);
             
             // 初期表示時に市区町村の選択肢を更新
-            //質問
             updateCities();
         </script>
     </body>

@@ -16,6 +16,11 @@ class Drink extends Model
     
     public function getByDrink(int $limit_count = 10)
     {
-        return $this->posts()->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this->posts()->with('drink')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    }
+    
+     public function getByDrinkAndPref()
+    {
+        return $this->posts()->with('drink')->orderBy('updated_at', 'DESC');
     }
 }
