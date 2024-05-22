@@ -22,7 +22,18 @@
                 @endforeach
             </select>
             <button type='button' onclick="location.href='/drink/{{ $drink->id }}/prefecture/' + document.getElementById('prefecture_id').value;">絞り込み</button>
-            <!--getElementByIdでoptionのvalueを取得し、それをURIに含めることでlocationメソッドを使いprefCategoryのindexのページに飛ぶことができる -->  
+            <!--getElementByIdでoptionのvalueを取得し、それをURIに含めることでlocationメソッドを使いprefCategoryのindexのページに飛ぶことができる --> 
+            @if(session('success'))
+            	<div>
+            		{{ session('success') }}
+            	</div>
+            @endif
+            
+            @if(session('failure'))
+            	<div>
+            		{{ session('failure') }}
+            	</div>
+            @endif
             @foreach($posts as $post)
             <div class="posts">
                 <h3>
@@ -49,6 +60,7 @@
                 'use strict'
                 if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
                     document.getElementById(`form_${id}`).submit();
+                    //formタグの内容を取得し送信
                 }
             }
         </script>

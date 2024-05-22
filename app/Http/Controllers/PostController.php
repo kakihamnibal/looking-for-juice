@@ -11,6 +11,7 @@ use App\Models\Prefecture;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Discover;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -66,7 +67,14 @@ class PostController extends Controller
     
     public function delete(Post $post)
     {
-        $post->delete();
-        return redirect('/drinks/'.$post->drink_id);
+        if(Auth::id() == $post->user_id)
+        {
+            $post->delete();
+            return redirect('/drinks/'.$post->drink_id)->with('success', '削除完了');
+        }
+        else
+        {
+            return redirect('/drinks/'.$post->drink_id)->with('failure', 'あなたが投稿したものではないため削除できません');
+        }
     }
 }
