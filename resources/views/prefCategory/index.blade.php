@@ -26,7 +26,17 @@
                 @endforeach
             </select>
             <button type='button' onclick="location.href='/drink/{{ $drink->id }}/prefecture/' + document.querySelector('select[name=prefecture_id]').value;">絞り込み</button>
+             @if(session('success'))
+            	<div>
+            		{{ session('success') }}
+            	</div>
+            @endif
             
+            @if(session('failure'))
+            	<div>
+            		{{ session('failure') }}
+            	</div>
+            @endif
             @foreach($posts as $post)
             <div class="posts">
                 <h3>

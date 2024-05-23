@@ -13,12 +13,27 @@
             <div class="drink_header">
                     <h1 class="drink">{{$post->drink->name}}</h1>
             </div>
+             @if(session('success'))
+            	<div>
+            		{{ session('success') }}
+            	</div>
+            @endif
+            
+            @if(session('failure'))
+            	<div>
+            		{{ session('failure') }}
+            	</div>
+            @endif
             <div class="posts">
                 <h3>
                     {{$post->title}}
                     <span>
-                        <button class="edit" type="button" >編集</button>
-                        <button class="delete" type="button" >削除</button>
+                        <button class="edit" type="button" ><a href='/posts/{{$post->id}}/edit'>編集</a></button>
+                        <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                        <button class="delete" type="button" onclick="deletePost({{ $post->id }})">削除</button> 
+                        </form>
                     </span>
                 </h3>
                 <p>{{$post->prefecture->prefecture}}{{$post->city->city}}</p>
@@ -32,6 +47,14 @@
             </div>
             <div class="back">[<a href="/drinks/{{$post->drink_id}}">戻る</a>]</div>
         </x-noLogin> 
+        <script>
+            function deletePost(id) {
+                'use strict'
+                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                    document.getElementById(`form_${id}`).submit();
+                }
+            }
+        </script>
     </body>
 </html>
     
