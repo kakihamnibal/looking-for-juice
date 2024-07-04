@@ -8,7 +8,8 @@
         <x-noLogin>
             <x-slot name="header">
                 ジュース発見ブログ&emsp;&emsp;
-                <a href='/login'>ログイン</a>&nbsp;/&nbsp;<a href='/register'>新規登録</a>
+                <a href='/login' class='transition hover:opacity-40'>ログイン</a>&nbsp;/&nbsp;
+                <a href='/register' class='transition hover:opacity-40'>新規登録</a>
             </x-slot>
             <div class="drink_header">
                     <h1 class="drink">{{$post->drink->name}}</h1>

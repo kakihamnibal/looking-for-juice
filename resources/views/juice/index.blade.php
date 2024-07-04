@@ -9,11 +9,12 @@
         <x-noLogin>
             <x-slot name="header">
                 ジュース発見ブログ&emsp;&emsp;
-                <a href='/login'>ログイン</a>&nbsp;/&nbsp;<a href='/register'>新規登録</a>
+                <a href='/login' class='transition hover:opacity-40'>ログイン</a>&nbsp;/&nbsp;
+                <a href='/register' class='transition hover:opacity-40'>新規登録</a>
             </x-slot>
             
             <div class="drink_header">
-                <h1 class="drink">{{$drink->name}}</h1>
+                <h1 class="text-blue-600">{{$drink->name}}</h1>
             </div>
             <select id='prefecture_id'>
                 <option>都道府県</option>
@@ -38,14 +39,17 @@
             <div class="posts">
                 <h3>
                     <a href='/posts/{{ $post->id }}'>{{ $post->title }}</a>
-                    <span>
-                        <button class="edit" type="button" ><a href='/posts/{{$post->id}}/edit'>編集</a></button>
-                        <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                        <button class="delete" type="button" onclick="deletePost({{ $post->id }})">削除</button> 
-                        </form>
-                    </span>
+                     @if( $userId == $post->user_id )<table class='text-white'>
+                        <tr>
+                            <td><button class="bg-teal-500" type="button" ><a href='/posts/{{$post->id}}/edit'>編集</a></button></td>
+                            <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                <td><button class="bg-red-500" type="button" onclick="deletePost({{ $post->id }})">削除</button></td>
+                            </form>
+                        </tr>
+                    </table>
+                    @endif
                 </h3>
                 <p>{{$post->prefecture->prefecture}}{{$post->city->city}}</p>
                 <p style="font-size: 10px;">{{$post->created_at}}</p>
