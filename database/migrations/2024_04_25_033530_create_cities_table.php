@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('city_code');
             $table->string('city');
+            $table->foreignId('prefecture_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +29,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('cities', function (Blueprint $table) {
+            $table->dropForeign(['prefecture_id']);
+        });
+    
         Schema::dropIfExists('cities');
     }
 };

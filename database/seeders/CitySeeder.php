@@ -25,11 +25,13 @@ class CitySeeder extends Seeder
             
             $response = $client->request('GET', $api, [
                 'headers' => [
+                //apiを使うために国土交通省が指定したhttpリクエストに送る追加情報
                     'Ocp-Apim-Subscription-Key' => config('services.city_api.city_key')
                 ]
             ]);
             
             $respone_bodys = json_decode($response->getBody()->getContents(), true);
+            //apiで入手したデータはjson形式であるためphpの連想配列にデコードしている
             
             if ($respone_bodys['status'] === 'OK') 
             {
